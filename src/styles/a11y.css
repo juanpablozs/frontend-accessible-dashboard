@@ -1,0 +1,229 @@
+/* Accessibility-Specific Styles */
+
+/* Skip to Content Link */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: top var(--transition-base);
+}
+
+.skip-to-content:focus {
+  top: var(--space-md);
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+/* Focus Visible Styles - Enhanced for Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+button:focus-visible,
+[role='button']:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+/* Error State Focus */
+input[aria-invalid='true']:focus-visible,
+textarea[aria-invalid='true']:focus-visible {
+  border-color: var(--color-error);
+  box-shadow: var(--focus-ring-error);
+}
+
+/* Live Region Announcements */
+[role='status'],
+[role='alert'],
+[aria-live] {
+  position: relative;
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Loading States - Accessible */
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary) 25%,
+    var(--color-bg-tertiary) 50%,
+    var(--color-bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: var(--border-radius);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-skeleton {
+    animation: none;
+    background: var(--color-bg-tertiary);
+  }
+}
+
+[data-reduced-motion='true'] .loading-skeleton {
+  animation: none;
+  background: var(--color-bg-tertiary);
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Keyboard Navigation Indicators */
+body:not(.user-is-tabbing) *:focus {
+  outline: none;
+}
+
+/* High Contrast Mode Borders */
+@media (prefers-contrast: high) {
+  button,
+  input,
+  select,
+  textarea {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Ensure Minimum Touch Target Size (44x44px) */
+button,
+[role='button'],
+a,
+input[type='checkbox'],
+input[type='radio'] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Exception for inline text links */
+p a,
+li a {
+  min-height: auto;
+  min-width: auto;
+}
+
+/* Disabled State - Accessible */
+:disabled,
+[aria-disabled='true'] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Required Field Indicator */
+.required-indicator {
+  color: var(--color-error);
+  font-weight: bold;
+  margin-left: var(--space-xs);
+}
+
+/* Form Error Summary */
+.error-summary {
+  background-color: var(--color-error-light);
+  border: 2px solid var(--color-error);
+  border-radius: var(--border-radius);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.error-summary:focus {
+  outline: 3px solid var(--color-error);
+  outline-offset: 2px;
+}
+
+/* Dialog/Modal Overlay */
+.dialog-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+  animation: fadeIn 200ms ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 400px;
+}
+
+/* Ensure Color is Not the Only Indicator */
+.status-indicator::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: var(--space-sm);
+}
+
+.status-open::before {
+  background-color: var(--color-primary);
+}
+
+.status-pending::before {
+  background-color: var(--color-warning);
+}
+
+.status-resolved::before {
+  background-color: var(--color-success);
+}
+
+.status-closed::before {
+  background-color: var(--color-text-disabled);
+}
