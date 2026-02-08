@@ -1,0 +1,39 @@
+.ticket-list-page {
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.ticket-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.ticket-list-header h1 {
+  margin: 0;
+}
+
+.tickets-count {
+  margin-bottom: var(--space-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.ticket-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+@media (max-width: 640px) {
+  .ticket-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ticket-list-header button {
+    width: 100%;
+  }
+}
